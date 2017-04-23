@@ -1,0 +1,25 @@
+html{
+	height:100%;
+	background:url(../../image/bg1.jpg) center center no-repeat;
+}
+.login-form-wrap{
+	width: 30%;
+    margin: 10% auto;
+    border: 1px solid;
+    border-radius: 10px;
+}
+.login-form-wrap h1{
+	text-align:center;
+}
+.login-form-wrap form{
+    width: 50%;
+    margin: 0 auto;
+}
+form input{
+    width: 89%;
+    border-radius: 5px;
+    border: 1px solid #5a5a71;
+    line-height: 28px;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+}
