@@ -98,6 +98,7 @@ public class UserController extends BaseController{
 			if(flag){
 				Md5Hash md5Hash = new Md5Hash(user.getPassword());
 				user.setPassword(md5Hash.toHex());
+				user.setRoles(t.getRoles());
 			}else{
 				user.setPassword(t.getPassword());
 			}

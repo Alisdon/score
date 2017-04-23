@@ -55,7 +55,7 @@
 	<form method="post" id="fmupdate">
 			<table cellpadding="5">
 				<tr>
-					<td><input type="hidden" name="id" /><input type="hidden" name="flag" value='true' class="textbox-value"></td>
+					<td><input type="hidden" name="id" /><input type="hidden" name="flag"></td>
 				</tr>
 	    		<tr>
 	    			<td>用户名:</td>
@@ -160,6 +160,7 @@
 			$('#fmupdate').form('submit',{
 				url: 'userController.do?update',
 				onSubmit: function(){
+					$('[name="flag"]').val('true');
 					return $(this).form('validate');
 				},
 				success: function(res){
