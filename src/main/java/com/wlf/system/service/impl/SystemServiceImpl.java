@@ -25,7 +25,7 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 		
 		return systemDao.getUserByNameAndPassword(user);
 	}
-
+	
 	@Override
 	public List<ResourceEntity> getTreeMenuResource(UserEntity user) {
 		return systemDao.getTreeMenuResource(user);

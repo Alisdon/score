@@ -18,9 +18,17 @@
 	</table>
 	
 	<div id="toolbar">
-		<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
-		<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
-		<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+		<c:forEach var="i" items="${code}">
+			<c:if test="${i=='roleadd'}">
+				<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
+			</c:if>
+			<c:if test="${i=='roleedit'}">
+			<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
+			</c:if>
+			<c:if test="${i=='delerole'}">
+			<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+			</c:if>
+		</c:forEach>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog" data-options="modal:true" title="数据参数" style="width: 400px; height: 280px;" closed="true" buttons="#dlg-buttons">

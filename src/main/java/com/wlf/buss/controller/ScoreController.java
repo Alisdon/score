@@ -38,6 +38,9 @@ import com.wlf.buss.service.ScoreService;
 import com.wlf.common.controller.BaseController;
 import com.wlf.common.util.AjaxJson;
 import com.wlf.common.util.Pagination;
+import com.wlf.common.util.ResourceUtil;
+import com.wlf.system.entity.base.ResourceEntity;
+import com.wlf.system.vo.Client;
 
 @Controller
 @RequestMapping("/scoreController")
@@ -59,6 +62,22 @@ public class ScoreController extends BaseController {
 	 */
 	@RequestMapping(params = "goScore")
 	public ModelAndView goScore(HttpServletRequest request) {
+		Client client = ResourceUtil.getClient();
+		List<ResourceEntity> resourceList = new ArrayList<ResourceEntity>();
+		if(client == null || client.getUser() == null){
+			return new ModelAndView("system/login");
+		}else{
+			resourceList = client.getMenuList();
+		}	
+		
+		List<String> ch=new ArrayList<String>();
+		if(resourceList!=null&&!resourceList.isEmpty()&&resourceList.get(0).getResourceType() == ResourceEntity.TYPE_MENU){
+			for(ResourceEntity rr:resourceList){
+				String code=rr.getCode();
+				ch.add(code);
+			}
+		}
+		request.setAttribute("code", ch);
 		return new ModelAndView("buss/score");
 	}
 

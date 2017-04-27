@@ -24,11 +24,23 @@
 	</table>
 	
 	<div id="toolbar">
-		<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
-		<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
-		<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
-		<a href="#" class="easyui-linkbutton save" iconCls="icon-save" onclick="upload()" plain="true">excel导入</a>
-		<a href="#" class="easyui-linkbutton back" iconCls="icon-back" onclick="exportExcel()" plain="true">excel导出</a>
+	<c:forEach var="i" items="${code}">
+			<c:if test="${i=='scoreadd'}">
+				<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
+			</c:if>
+			<c:if test="${i=='scoreedit'}">
+			<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
+			</c:if>
+			<c:if test="${i=='delescore'}">
+			<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+			</c:if>
+			<c:if test="${i=='importscore'}">
+			<a href="#" class="easyui-linkbutton save" iconCls="icon-save" onclick="upload()" plain="true">excel导入</a>
+			</c:if>
+			<c:if test="${i=='exportscore'}">
+			<a href="#" class="easyui-linkbutton back" iconCls="icon-back" onclick="exportExcel()" plain="true">excel导出</a>
+			</c:if>
+		</c:forEach>
 		<div>
 			学生姓名: <input class="easyui-textbox" id="paramName">
 			教师姓名: <input class="easyui-textbox" id="paramTeachername">
@@ -57,7 +69,7 @@
 	    		</tr>
 	    		<tr>
 	    			<td>课程名称:</td>
-	    			<td><input class="easyui-textbox" id="coursename" type="text" name="coursename" maxlength="10" required="true" missingMessage="课程名称必须填写"></input></td>
+	    			<td><input style='width:173px' class="easyui-textbox" id="coursename" type="text" name="coursename" maxlength="10" required="true" missingMessage="课程名称必须填写"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>分数:</td>
@@ -65,11 +77,11 @@
 	    		</tr>
 	    		<tr>
 	    			<td>学期:</td>
-	    			<td><input class="easyui-textbox" id="term" type="text" name="term" maxlength="10" required="true" missingMessage="学期名称必须填写"></input></td>
+	    			<td><input style='width:173px' class="easyui-textbox" id="term" type="text" name="term" maxlength="10" required="true" missingMessage="学期名称必须填写"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>班级:</td>
-	    			<td><input class="easyui-textbox" id="classname" type="text" name="classname" maxlength="10" required="true" missingMessage="班级必须填写"></input></td>
+	    			<td><input style='width:173px' class="easyui-combobox" id="classname" name="classname" data-options="valueField:'text',textField:'text'" maxlength="10" required="true" missingMessage="班级必须填写"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>教师:</td>
@@ -153,6 +165,29 @@
 	<script type="text/javascript">
 	$(function() {  
 		loadDataGrid();
+		$.ajax({
+			url:'Json/datasourse.json',
+			type:'get',
+			dataType:"text",
+			success:function(res,s,jq){
+				$('#classname').combobox({
+				    valueField:'text',
+				    textField:'text',
+				    data:JSON.parse(res).className
+				});
+				$('#term').combobox({
+				    valueField:'text',
+				    textField:'text',
+				    data:JSON.parse(res).termName
+				});
+				$('#coursename').combobox({
+				    valueField:'text',
+				    textField:'text',
+				    data:JSON.parse(res).courseName
+				});
+			}
+		})
+		
     });  	
 	 function afterSelect(targetDg,targetDlg,valueId,valueName){
 	    	var row = $("#"+targetDg).datagrid('getSelections');

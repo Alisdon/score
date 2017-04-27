@@ -23,9 +23,17 @@
 	</table>
 	
 	<div id="toolbar">
-		<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
-		<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
-		<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+		<c:forEach var="i" items="${code}">
+			<c:if test="${i=='stuadd'}">
+				<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
+			</c:if>
+			<c:if test="${i=='stuedit'}">
+			<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
+			</c:if>
+			<c:if test="${i=='delestu'}">
+			<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+			</c:if>
+		</c:forEach>
 		<div>
 			学号: <input class="easyui-textbox" id="paramStudentnum">
 			学生姓名: <input class="easyui-textbox" id="paramStudent">
@@ -53,12 +61,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td>性别:</td>
-	    			<td>
-						<select name="sex" id="sex">
-							<option value="1" selected="selected">男</option>
-							<option value="2">女</option>
-						</select>
-					</td>
+	    			<td><input type="radio" name="sex" class="easyui-validatebox" checked="checked" value="1"><label>男</label></input>
+            			<input type="radio" name="sex" class="easyui-validatebox" value="2"><label>女</label></td>
 	    		</tr>
 	    		<tr>
 	    			<td>出生日期:</td>

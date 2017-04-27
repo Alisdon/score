@@ -24,9 +24,17 @@
 	</table>
 	
 	<div id="toolbar">
-		<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="newUser()" plain="true">新增</a> 
-		<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="editUser()" plain="true">修改</a> 
-		<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="deleteUser()" plain="true">删除</a>
+		<c:forEach var="i" items="${code}">
+			<c:if test="${i=='useradd'}">
+				<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="newUser()" plain="true">新增</a> 
+			</c:if>
+			<c:if test="${i=='useredit'}">
+				<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="editUser()" plain="true">修改</a> 
+			</c:if>
+			<c:if test="${i=='deleuser'}">
+			<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="deleteUser()" plain="true">删除</a>
+			</c:if>
+		</c:forEach>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog" data-options="modal:true" title="数据参数" style="width: 400px; height: 500px;" closed="true" buttons="#dlg-buttons">
@@ -69,12 +77,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td>状态:</td>
-	    			<td>
-						<select name="status" >
-							<option selected="selected" value="1">正常</option>
-							<option value="2">禁用</option>
-						</select>
-					</td>
+	    			<td><input id="certType" type="radio" name="status" class="easyui-validatebox" checked="checked" value="1"><label>正常</label></input>
+            			<input id="certType" type="radio" name="status" class="easyui-validatebox" value="2"><label>禁用</label></td>
 	    		</tr>
 	    		<tr>
 	    			<td>角色:</td>
@@ -118,12 +122,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td>状态:</td>
-	    			<td>
-						<select name="status">
-							<option value="1">正常</option>
-							<option value="2">禁用</option>
-						</select>
-					</td>
+	    			<td><input id="certType" type="radio" name="status" class="easyui-validatebox" checked="checked" value="1"><label>正常</label></input>
+            			<input id="certType" type="radio" name="status" class="easyui-validatebox" value="2"><label>禁用</label></td>
 	    		</tr>
 	    		<tr>
 	    			<td>角色:</td>

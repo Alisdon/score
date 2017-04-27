@@ -13,9 +13,10 @@
 			<tr>
 				<th data-options="field:'name',width:80">菜单名称</th>
 				<th data-options="field:'description',width:80">菜单描述</th>
-				<th data-options="field:'href',width:80">菜单地址</th>
-				<th data-options="field:'orderNo',width:80">排序</th>
-				<th data-options="field:'resourceType',width:80">菜单类型</th>
+				<th data-options="field:'href',width:80" hidden='true'>菜单地址</th>
+				<th data-options="field:'code',width:80">菜单编码</th>
+				<th data-options="field:'orderNo',width:80" hidden="true">排序</th>
+				<th data-options="field:'resourceType',width:80" formatter='menuStyle'>菜单类型</th>
 				<th data-options="field:'parentResource',width:80" hidden="true">上级菜单</th>
 				<th data-options="field:'parentid',width:80" hidden="true">上级菜单</th>
 				
@@ -24,9 +25,19 @@
 	</table>
 	
 	<div id="toolbar">
-		<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
-		<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
-		<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+		<c:forEach var="i" items="${code}">
+			<c:if test="${i=='resadd'}">
+				<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
+			</c:if>
+			<c:if test="${i=='resedit'}">
+			<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
+			</c:if>
+			<c:if test="${i=='deleres'}">
+			<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+			</c:if>
+		</c:forEach>
+		
+		
 	</div>
 	
 	<div id="dlg" class="easyui-dialog" title="数据参数" data-options="modal:true" style="width: 400px; height: 350px;" closed="true" buttons="#dlg-buttons">
@@ -49,7 +60,7 @@
 	    		</tr>
 	    		<tr>
 	    			<td>资源编码:</td>
-	    			<td><input class="easyui-textbox" validtype="" type="text" name="code"  maxlength="20" required="false" ></input></td>
+	    			<td><input class="easyui-textbox" validtype="" type="text" name="code" required="true" maxlength="20" required="false" ></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>资源地址:</td>
@@ -61,10 +72,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td>资源类型:</td>
-	    			<td><select class="easyui-combobox" name="resourceType" style="width:173px">
-						    <option value="1">菜单</option>
-						    <option value="2">按钮</option>
-						</select></td>
+	    			<td><input id="certType" type="radio" name="resourceType"class="easyui-validatebox" checked="checked" value="1"><label>菜单</label></input>
+            			<input id="certType" type="radio" name="resourceType" class="easyui-validatebox" value="2"><label>按钮</label></td>
 	    		</tr>
 	    	</table>
 		</form>
@@ -123,7 +132,14 @@
 			});
 			
 		}
-	
+	    function menuStyle(value, row, index){
+	        if (value == "1") {
+	            return '菜单';
+	        }
+	        else {
+	            return '按钮';
+	        }
+	    }
 		
 		var url;
 		function create(){
@@ -134,18 +150,26 @@
 		}
 		function edit(){
 			var row = $('#dg').treegrid('getSelections');
-			if (row.length == 1){
-				$('#dlg').dialog('open').dialog('setTitle','编辑');
-				$('#fm').form('clear');
-				treeload(row[0]._parentId);
-				$('#fm').form('load',row[0]);
-				url = 'resourceController.do?update';
-			}else{
+			if(row[0].id=='1'){
 				$.messager.show({
 					title: '提示信息',
-					msg: '请选择一行数据再进行编辑！'
+					msg: '不能选择根节点！'
 				});
+			}else{
+				if (row.length == 1){
+					$('#dlg').dialog('open').dialog('setTitle','编辑');
+					$('#fm').form('clear');
+					treeload(row[0]._parentId);
+					$('#fm').form('load',row[0]);
+					url = 'resourceController.do?update';
+				}else{
+					$.messager.show({
+						title: '提示信息',
+						msg: '请选择一行数据再进行编辑！'
+					});
+				}
 			}
+			
 		}
 		function save(){
 			$('#fm').form('submit',{

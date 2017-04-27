@@ -23,9 +23,17 @@
 	</table>
 	
 	<div id="toolbar">
-		<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a> 
-		<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
-		<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+		<c:forEach var="i" items="${code}">
+			<c:if test="${i=='teahadd'}">
+				<a href="#" class="easyui-linkbutton add" iconCls="icon-add" onclick="create()" plain="true">新增</a>  
+			</c:if>
+			<c:if test="${i=='teahedit'}">
+				<a href="#" class="easyui-linkbutton edit" iconCls="icon-edit" onclick="edit()" plain="true">修改</a> 
+			</c:if>
+			<c:if test="${i=='deleteah'}">
+			<a href="#" class="easyui-linkbutton remove" iconCls="icon-remove" onclick="del()" plain="true">删除</a>
+			</c:if>
+		</c:forEach>
 		<div>
 			教师工号: <input class="easyui-textbox" id="paramTeachernum">
 			教师姓名: <input class="easyui-textbox" id="paramTeacherName">

@@ -91,12 +91,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td>状态:</td>
-	    			<td>
-						<select name="status">
-							<option value="1">正常</option>
-							<option value="2">禁用</option>
-						</select>
-					</td>
+	    			<td><input id="certType" type="radio" name="status" class="easyui-validatebox" checked="checked" value="1"><label>正常</label></input>
+            			<input id="certType" type="radio" name="status" class="easyui-validatebox" value="2"><label>禁用</label></td>
 	    		</tr>
 	    	</table>
 		</form>
